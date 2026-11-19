@@ -256,7 +256,7 @@ export default function Home() {
                 }}
               >
                 <Image
-                  src="/images/lego-rail-logo.png"
+                  src={logo}
                   alt="Trackflow LEGO railway emblem"
                   width={540}
                   height={540}
@@ -493,7 +493,7 @@ export default function Home() {
           >
             <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
               <Image
-                src="/images/lego-rail-logo.png"
+                src={logo}
                 alt="Trackflow"
                 width={38}
                 height={38}
