@@ -20,6 +20,7 @@ import SpeedIcon from "@mui/icons-material/Speed";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 import TrainIcon from "@mui/icons-material/Train";
+import Footer from "./Components/Footer";
 
 const navy = "#0B1830";
 const yellow = "#F5C928";
@@ -47,89 +48,7 @@ const features = [
 
 export default function Home() {
   return (
-    <Box sx={{ bgcolor: "#fff", minHeight: "100vh" }}>
-
-      {/* NAVIGATION */}
-      <AppBar
-        position="sticky"
-        elevation={0}
-        sx={{
-          bgcolor: "#fff",
-          color: navy,
-          borderBottom: "1px solid #E9EDF2",
-        }}
-      >
-        <Container maxWidth="lg">
-          <Toolbar disableGutters sx={{ minHeight: 82 }}>
-            <Stack direction="row" sx={{ alignItems: "center" }} spacing={1.5}>
-              <Image
-                src={logo}
-                alt="Trackflow logo"
-                width={52}
-                height={52}
-                style={{ objectFit: "contain" }}
-              />
-              <Typography
-                variant="h5"
-                sx={{ fontWeight: 900, letterSpacing: 1.5 }}
-              >
-                TRACKFLOW
-              </Typography>
-            </Stack>
-
-            <Box sx={{ flexGrow: 1 }} />
-
-            <Stack
-              direction="row"
-              spacing={{ xs: 1, md: 4 }}
-              sx={{ alignItems: "center" }}
-            >
-              {["Home", "Solution", "About", "Contact"].map((item) => (
-                <Typography
-                  key={item}
-                  component={Link}
-                  href={
-                    item === "Home"
-                      ? "#home"
-                      : item === "Solution"
-                        ? "#solution"
-                        : item === "About"
-                          ? "#about"
-                          : "#contact"
-                  }
-                  sx={{
-                    display: { xs: item === "Home" ? "block" : "none", sm: "block" },
-                    color: navy,
-                    textDecoration: "none",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    "&:hover": { color: "#C99D00" },
-                  }}
-                >
-                  {item}
-                </Typography>
-              ))}
-
-              <Button
-                component={Link}
-                href="#contact"
-                variant="contained"
-                sx={{
-                  bgcolor: yellow,
-                  color: navy,
-                  fontWeight: 800,
-                  px: 2.5,
-                  "&:hover": { bgcolor: "#E5B900" },
-                }}
-              >
-                Get in touch
-              </Button>
-            </Stack>
-          </Toolbar>
-        </Container>
-      </AppBar>
-
-      {/* HERO */}
+    <Box>
       <Box
         id="home"
         sx={{
@@ -476,39 +395,6 @@ export default function Home() {
           </Box>
         </Container>
       </Box>
-
-      {/* FOOTER */}
-      <Box sx={{ bgcolor: "#071224", color: "#fff", py: 4 }}>
-        <Container maxWidth="lg">
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            sx={{
-              justifyContent: "space-between",
-              alignItems: {
-                xs: "flex-start",
-                sm: "center"
-              }
-            }}
-          >
-            <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
-              <Image
-                src={logo}
-                alt="Trackflow"
-                width={38}
-                height={38}
-              />
-              <Typography fontWeight={900} letterSpacing={1.5}>
-                TRACKFLOW
-              </Typography>
-            </Stack>
-
-            <Typography sx={{ color: "#8290A5", fontSize: 13 }}>
-              © {2026} Trackflow. All rights reserved.
-            </Typography>
-          </Stack>
-        </Container>
-      </Box>
-    </Box>
+    </Box >
   );
 }
