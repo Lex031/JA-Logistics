@@ -42,18 +42,19 @@ export default function Navigation({ logo }) {
                         spacing={{ xs: 1, md: 4 }}
                         sx={{ alignItems: "center" }}
                     >
-                        {["Home", "Solution", "About", "Contact"].map((item) => (
+                        {["Home", "Solution", "About", "Group", "Contact"].map((item) => (
                             <Typography
                                 key={item}
                                 component={Link}
                                 href={
                                     item === "Home"
-                                        ? "#home"
+                                        ? "/"
                                         : item === "Solution"
-                                            ? "#solution"
+                                            ? "/solution"
                                             : item === "About"
-                                                ? "#about"
-                                                : "#contact"
+                                                ? "/about"
+                                                : item === "/contact"
+                                                    ? "/contact" : "/group"
                                 }
                                 sx={{
                                     display: { xs: item === "Home" ? "block" : "none", sm: "block" },
@@ -70,7 +71,7 @@ export default function Navigation({ logo }) {
 
                         <Button
                             component={Link}
-                            href="#contact"
+                            href="/contact"
                             variant="contained"
                             sx={{
                                 bgcolor: yellow,
