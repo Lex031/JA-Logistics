@@ -2,8 +2,9 @@ import ClientLayout from "./client.layout";
 import "./globals.css";
 
 export const metadata = {
-  title: "JA logistics",
-  description: "A page about John Allens timesaver, with LEGO trains",
+  title: "Trackflow | Smarter Rail Operations",
+  description:
+    "A smarter way to approach railway operations. We turn complex processes into simple, efficient and practical solutions.",
 };
 
 export default function RootLayout({ children }) {
