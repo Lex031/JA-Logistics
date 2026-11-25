@@ -42,7 +42,7 @@ export default function Navigation({ logo }) {
                         spacing={{ xs: 1, md: 4 }}
                         sx={{ alignItems: "center" }}
                     >
-                        {["Home", "Solution", "About", "Group", "Pitch", "Contact"].map((item) => (
+                        {["Home", "Solution", "About", "Group", "Pitch"].map((item) => (
                             <Typography
                                 key={item}
                                 component={Link}
@@ -53,10 +53,8 @@ export default function Navigation({ logo }) {
                                             ? "/solution"
                                             : item === "About"
                                                 ? "/about"
-                                                : item === "Contact"
-                                                    ? "/contact"
-                                                    : item === "Group"
-                                                        ? "/group" : "pitch"
+                                                : item === "Group"
+                                                    ? "/group" : "pitch"
                                 }
                                 sx={{
                                     display: { xs: item === "Home" ? "block" : "none", sm: "block" },
