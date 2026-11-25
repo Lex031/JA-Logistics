@@ -32,7 +32,7 @@ const features = [
         description:
             "We connect to the train via the LEGO controller in the train using its built-in Bluetooth.",
         image: "/images/solution/track-layout.jpeg",
-        github: "https://github.com/Lex031/JA-Logistics/tree/Embedded/JALogisticsControlerDemo",
+        github: "https://github.com/Lex031/JA-Logistics/tree/Embedded/JA_Logistics_Embedded",
         technologies: [
             "Javascript",
             "BLE",
