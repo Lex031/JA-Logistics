@@ -1,5 +1,5 @@
 "use client"
-import logo from "@/public/LEGO-figurhoved i skinnering.png"
+import logo from "@/public/logo.png"
 import { Box } from "@mui/material";
 import { Footer, Navigation } from "./Components";
 

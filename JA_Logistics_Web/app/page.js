@@ -10,7 +10,7 @@ import {
   Stack,
   Grid,
 } from "@mui/material";
-import logo from "@/public/LEGO-figurhoved i skinnering.png"
+import logo from "@/public/logo.png"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TrainIcon from "@mui/icons-material/Train";
 
