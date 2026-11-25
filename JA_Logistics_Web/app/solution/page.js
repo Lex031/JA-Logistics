@@ -20,7 +20,11 @@ const features = [
         description:
             "We use a Raspberry Pi to connect with the switches and control the track layout.",
         image: "/images/solution/raspberry-pi.jpeg",
-        github: "https://github.com/Lex031/JA-Logistics/tree/Embedded/JA_Logistics_Embedded"
+        github: "https://github.com/Lex031/JA-Logistics/tree/Embedded/JA_Logistics_Embedded",
+        technologies: [
+            "Python",
+            "I2C",
+        ],
     },
     {
         icon: <PrecisionManufacturingIcon />,
@@ -29,6 +33,10 @@ const features = [
             "We connect to the train via the LEGO controller in the train using its built-in Bluetooth.",
         image: "/images/solution/track-layout.jpeg",
         github: "https://github.com/Lex031/JA-Logistics/tree/Embedded/JALogisticsControlerDemo",
+        technologies: [
+            "Javascript",
+            "BLE",
+        ],
     },
     {
         icon: <LightbulbOutlinedIcon />,
