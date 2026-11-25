@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>John Allen Timesaver - LEGO Control GUI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <h1>John Allen's Timesaver — Track &amp; Train Control</h1>
+
+  <!-- Connection & Throttle Bar -->
+  <div class="toolbar">
+    <input type="text" id="hubNameInput" placeholder="Hub name (optional)">
+    <button id="btnConnect" class="btn-connect" onclick="connectHub()">Connect Hub</button>
+    <button id="btnDisconnect" class="btn-disconnect" onclick="disconnectHub()" disabled>Disconnect</button>
+    <button class="btn-rev" onclick="sendCmd('r')">◀ Reverse</button>
+    <button class="btn-stop" onclick="sendCmd('s')">■ Stop</button>
+    <button class="btn-fwd" onclick="sendCmd('f')">Forward ▶</button>
+    <button class="btn-puzzle" onclick="newPuzzle()">🎲 New Puzzle Goal</button>
+  </div>
+
+  <div id="status">Status: Disconnected (Click SW1–SW5 to toggle turnouts, or click a capacity box to move LOCO)</div>
+
+  <!-- Interactive SVG Track Diagram -->
+  <div class="board">
+    <svg viewBox="0 0 920 340">
+      <!-- 1. TOP TRACK -->
+      <line x1="110" y1="65" x2="810" y2="65" class="track-base" />
+
+      <!-- 2. DIAGONAL CROSSOVER -->
+      <line x1="460" y1="65" x2="290" y2="225" class="track-base" />
+
+      <!-- 3. MIDDLE SIDING -->
+      <line x1="375" y1="145" x2="555" y2="145" class="track-base" />
+      <line x1="555" y1="145" x2="640" y2="225" class="track-base" />
+
+      <!-- 4. BOTTOM MAIN LINE -->
+      <line x1="40" y1="225" x2="880" y2="225" class="track-base" />
+
+      <!-- 5. BOTTOM-LEFT SPUR -->
+      <line x1="380" y1="225" x2="310" y2="290" class="track-base" />
+      <line x1="110" y1="290" x2="310" y2="290" class="track-base" />
+
+      <!-- GELE ROUTE-LIJNEN PER WISSEL (0 = default, 1 = diverging) -->
+      <!-- SW1: links op top track vs. schuin naar onder -->
+      <line x1="460" y1="65" x2="240" y2="65" class="track-route" id="route-sw1-0" />
+      <line x1="460" y1="65" x2="375" y2="145" class="track-route" id="route-sw1-1" />
+
+      <!-- SW2: rechts op midden-spoor vs. schuin naar onder -->
+      <line x1="375" y1="145" x2="555" y2="145" class="track-route" id="route-sw2-0" />
+      <line x1="375" y1="145" x2="290" y2="225" class="track-route" id="route-sw2-1" />
+
+      <!-- SW3: rechts op onderste spoor vs. schuin naar boven -->
+      <line x1="290" y1="225" x2="380" y2="225" class="track-route" id="route-sw3-0" />
+      <line x1="290" y1="225" x2="375" y2="145" class="track-route" id="route-sw3-1" />
+
+      <!-- SW4: links op onderste spoor vs. schuin naar onder (spur) -->
+      <line x1="380" y1="225" x2="290" y2="225" class="track-route" id="route-sw4-0" />
+      <line x1="380" y1="225" x2="310" y2="290" class="track-route" id="route-sw4-1" />
+
+      <!-- SW5: links op onderste spoor vs. schuin naar boven (midden-spoor) -->
+      <line x1="640" y1="225" x2="530" y2="225" class="track-route" id="route-sw5-0" />
+      <line x1="640" y1="225" x2="555" y2="145" class="track-route" id="route-sw5-1" />
+
+      <!-- STORAGE CAPACITY BOXES -->
+      <g onclick="setTrainPos('TOP_LEFT', 220, 65)">
+        <rect x="200" y="47" width="40" height="36" class="cap-box" />
+        <text x="220" y="65" class="cap-text">3</text>
+        <text x="220" y="34" class="zone-sub">TOP LEFT</text>
+      </g>
+
+      <g onclick="setTrainPos('TOP_RIGHT', 640, 65)">
+        <rect x="620" y="47" width="40" height="36" class="cap-box" />
+        <text x="640" y="65" class="cap-text">3</text>
+        <text x="640" y="34" class="zone-sub">TOP RIGHT</text>
+      </g>
+
+      <g onclick="setTrainPos('MID_1', 475, 145)">
+        <rect x="455" y="127" width="40" height="36" class="cap-box" />
+        <text x="475" y="145" class="cap-text">1</text>
+        <text x="475" y="114" class="zone-sub">MID SIDING</text>
+      </g>
+
+      <g onclick="setTrainPos('BOT_LEFT', 140, 225)">
+        <rect x="120" y="207" width="40" height="36" class="cap-box" />
+        <text x="140" y="225" class="cap-text">2</text>
+        <text x="140" y="194" class="zone-sub">BOT LEFT</text>
+      </g>
+
+      <g onclick="setTrainPos('BOT_MID', 510, 225)">
+        <rect x="490" y="207" width="40" height="36" class="cap-box" />
+        <text x="510" y="225" class="cap-text">2</text>
+        <text x="510" y="194" class="zone-sub">BOT CENTER</text>
+      </g>
+
+      <g onclick="setTrainPos('BOT_RIGHT', 780, 225)">
+        <rect x="760" y="207" width="40" height="36" class="cap-box" />
+        <text x="780" y="225" class="cap-text">2</text>
+        <text x="780" y="194" class="zone-sub">BOT RIGHT</text>
+      </g>
+
+      <g onclick="setTrainPos('BOT_SPUR', 200, 290)">
+        <rect x="180" y="272" width="40" height="36" class="cap-box" />
+        <text x="200" y="290" class="cap-text">2</text>
+        <text x="200" y="324" class="zone-sub">BOT SPUR</text>
+      </g>
+
+      <!-- 5 TURNOUT SWITCH NODES WITH DIRECTION ARROWS -->
+      <g class="switch-node" transform="translate(460, 65)" onclick="toggleSwitch(1)">
+        <polygon id="arrow-sw1" points="19,-6 31,0 19,6" class="route-arrow" />
+        <circle r="15" class="switch-circle" id="btn-sw1" />
+        <text class="switch-label">SW1</text>
+      </g>
+
+      <g class="switch-node" transform="translate(375, 145)" onclick="toggleSwitch(2)">
+        <polygon id="arrow-sw2" points="19,-6 31,0 19,6" class="route-arrow" />
+        <circle r="15" class="switch-circle" id="btn-sw2" />
+        <text class="switch-label">SW2</text>
+      </g>
+
+      <g class="switch-node" transform="translate(290, 225)" onclick="toggleSwitch(3)">
+        <polygon id="arrow-sw3" points="19,-6 31,0 19,6" class="route-arrow" />
+        <circle r="15" class="switch-circle" id="btn-sw3" />
+        <text class="switch-label">SW3</text>
+      </g>
+
+      <g class="switch-node" transform="translate(380, 225)" onclick="toggleSwitch(4)">
+        <polygon id="arrow-sw4" points="19,-6 31,0 19,6" class="route-arrow" />
+        <circle r="15" class="switch-circle" id="btn-sw4" />
+        <text class="switch-label">SW4</text>
+      </g>
+
+      <g class="switch-node" transform="translate(640, 225)" onclick="toggleSwitch(5)">
+        <polygon id="arrow-sw5" points="19,-6 31,0 19,6" class="route-arrow" />
+        <circle r="15" class="switch-circle" id="btn-sw5" />
+        <text class="switch-label">SW5</text>
+      </g>
+
+      <!-- TRAIN POSITION INDICATOR -->
+      <g id="train-token" transform="translate(140, 225)">
+        <rect x="-25" y="-28" width="50" height="20" rx="5" class="train-marker" />
+        <text y="-18" class="train-text">LOCO</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Timesaver Car Destination Goals -->
+  <div class="puzzle-box" id="puzzleGoals"></div>
+
+  <script src="{{ url_for('static', filename='js/bluetooth.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
