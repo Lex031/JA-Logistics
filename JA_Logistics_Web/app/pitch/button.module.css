@@ -1,0 +1,15 @@
+.button {
+    text-decoration: none;
+}
+
+.pdf-document-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.pdf-page {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}

@@ -6,21 +6,21 @@ import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
 const features = [
     {
         icon: <SpeedIcon />,
-        title: "Save valuable time",
+        title: "Raspberry Pi",
         description:
-            "Reduce unnecessary steps and create more efficient workflows.",
+            "We use a raspberry pi to connect with the switches to change the tracks.",
     },
     {
         icon: <PrecisionManufacturingIcon />,
-        title: "Improve efficiency",
+        title: "LEGO and bluetooth",
         description:
-            "Make everyday operations smoother with a smarter approach.",
+            "We connect to the train via the LEGO controller in the train using it's build-in bluetooth.",
     },
     {
         icon: <LightbulbOutlinedIcon />,
-        title: "Think differently",
+        title: "The Website",
         description:
-            "Discover new possibilities through practical innovation.",
+            "The website is made with NextJS and hosted at netlify.",
     },
 ];
 

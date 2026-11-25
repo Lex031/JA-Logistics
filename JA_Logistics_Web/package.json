@@ -15,8 +15,11 @@
     "@mui/material": "^9.5.0",
     "date-fns": "^4.4.0",
     "next": "16.4.6",
+    "pdfjs-dist": "^6.5.438",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-device-detect": "^2.2.3",
+    "react-dom": "19.3.0",
+    "react-pdf": "^11.1.0"
   },
   "devDependencies": {
     "babel-plugin-react-compiler": "1.0.0",
